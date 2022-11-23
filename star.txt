@@ -18,7 +18,7 @@ orderid	integer NOT NULL,
 order_received_timestamp timestamp NOT NULL,
 order_delivery_timestamp timestamp NOT NULL,
 pincode	integer NOT NULL,
-order_amount numeric NOT NULL,
+order_amount integer NOT NULL,
 item_count integer NOT NULL,
 order_delivery_time_seconds integer NOT NULL);
 
