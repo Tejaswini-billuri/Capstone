@@ -1,0 +1,11 @@
+/*5. Distribution of orders according to area ( state, city, pincode etc)*/
+
+select 
+a.state,
+a.city,
+count(distinct f.orderid) NumberOfOrders
+from `pax-11-366616.star_schema.fact_daily_orders` f
+join `pax-11-366616.star_schema.dim_customer` c on f.customerid = c.customerid
+join `pax-11-366616.star_schema.dim_address` a on c.address_id = a.address_id
+group by 
+state,city
