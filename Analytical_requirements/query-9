@@ -1,0 +1,20 @@
+/*9. Average time to delivery order. Min and Max time. To be able to slice and dice on hour, weekday, weekend, daily, monthly, geography, */
+
+select distinct
+EXTRACT(DATE from f.order_delivery_timestamp) DATES,
+EXTRACT(WEEK from f.order_delivery_timestamp) WEEKS,
+EXTRACT(DAYOFWEEK from f.order_delivery_timestamp) WEEKDAYS,
+EXTRACT(MONTH from f.order_delivery_timestamp) MONTHS,
+a.City,
+Min(f.order_delivery_time_seconds) MinDeliveryTime,
+max(f.order_delivery_time_seconds) MaxDeliveryTime,
+avg(f.order_delivery_time_seconds) AvgDeliveryTime,
+from `pax-11-366616.star_schema.fact_daily_orders` f
+join `pax-11-366616.star_schema.dim_customer` c on f.customerid = c.customerid
+join `pax-11-366616.star_schema.dim_address` a on c.address_id = a.address_id
+group by 
+DATES,
+WEEKS,
+WEEKDAYS,
+MONTHS,
+City
