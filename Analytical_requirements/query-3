@@ -1,0 +1,14 @@
+/*3. total number of units sold per day of a product SKU and its monthly trend*/
+select
+p.productname,
+p.sku,
+EXTRACT(DAY from f.order_delivery_timestamp) as DAY,
+EXTRACT(MONTH from f.order_delivery_timestamp) as MONTH,
+sum(quantity) as units_sold
+From  `pax-11-366616.star_schema.dim_product` p 
+join `pax-11-366616.star_schema.f_order_details` f
+on p.productid = f.productid
+group by productname,
+sku,
+DAY,
+MONTH
