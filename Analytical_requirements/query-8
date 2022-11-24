@@ -1,0 +1,9 @@
+/*8. Total count of customers everyday*/
+
+select 
+EXTRACT(DATE from order_received_timestamp) Dates,
+count(customerid) CustomerCounts
+from `pax-11-366616.star_schema.fact_daily_orders` 
+group by 
+Dates
+order by Dates
