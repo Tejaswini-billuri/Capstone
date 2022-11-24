@@ -1,0 +1,23 @@
+/*1. Average number of items per order - daily, monthly, weekly, state, city, pincode*/
+
+Select 
+EXTRACT(DAY from order_received_timestamp) AS Daily,
+EXTRACT(MONTH from order_received_timestamp) AS Monthly,
+EXTRACT(WEEK from order_received_timestamp) AS Weekly,
+a.state AS State,
+a.city AS City,
+f.pincode AS Pincode,
+avg(item_count) as avg_items
+
+From  `pax-11-366616.star_schema.fact_daily_orders` f
+left join `pax-11-366616.star_schema.dim_customer` c
+  on f.customerid = c.customerid
+left join `pax-11-366616.star_schema.dim_address` a
+  on c.address_id = a.address_id
+group by 
+Daily,
+Monthly,
+Weekly,
+STATE,
+City,
+Pincode
