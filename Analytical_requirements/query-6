@@ -1,0 +1,9 @@
+/*6. Average order amount per customer on daily basis*/
+
+select 
+customerid,
+EXTRACT(DATE from order_received_timestamp) Date,
+round(avg(order_amount),2) AS OrderAmount
+from `pax-11-366616.star_schema.fact_daily_orders` 
+group by 
+customerid,Date
