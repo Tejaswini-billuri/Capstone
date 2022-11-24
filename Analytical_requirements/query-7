@@ -1,0 +1,10 @@
+/*7. New Customers on daily basis*/
+
+select 
+START_DATE as dat,
+count(customerid) NewCustomers
+from `pax-11-366616.star_schema.dim_customer`
+where customerid in (select customerid from `pax-11-366616.star_schema.dim_customer`
+group by customerid having count(*)=1)
+group by dat
+order by dat
